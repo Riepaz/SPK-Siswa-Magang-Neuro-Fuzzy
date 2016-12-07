@@ -27,6 +27,7 @@ public class Pertanyaan extends javax.swing.JInternalFrame {
     private static String [] sumber;
     private static String [] kategori;
     private static int [] status;
+    private String [][] jawaban;
     
     private String [] Sangat_Penting ;
     private String [] Penting ;
@@ -127,7 +128,6 @@ public class Pertanyaan extends javax.swing.JInternalFrame {
         }
     }
     
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -292,6 +292,32 @@ public class Pertanyaan extends javax.swing.JInternalFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        if(status[x] == 1){
+            jawabanSederhana.getText();
+        }
+        else if (status[x]==2){
+            jawaban[x][0] = jawabanSederhana.getText();
+            jawaban[x][1] = jButton3.getText();
+            jawaban[x][2] = jButton4.getText();
+            jawaban[x][3] = jButton5.getText();
+            jawaban[x][4] = jButton6.getText();
+        }
+        else if (x == 3){
+            jawaban[x][0] = jButton3.getText();
+            jawaban[x][1] = jButton4.getText();
+        }
+        else if (status[x] == 4){
+            jawaban[x][0] = jCheckBox1.getText();
+            jawaban[x][1] = jCheckBox2.getText();
+            jawaban[x][2] = jButton3.getText();
+            jawaban[x][3] = jButton4.getText();
+            jawaban[x][4] = rasionalisasi.getText();  
+        }
+        else if (status[x] == 5){
+           jawaban[x][0] = jButton3.getText();
+           jawaban[x][1] = jButton4.getText();
+           jawaban[x][2] = rasionalisasi.getText();
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
