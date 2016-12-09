@@ -9,19 +9,19 @@ import java.beans.PropertyVetoException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
-import skp.siswa.magang.view.InputAnalisa;
-import skp.siswa.magang.view.Pertanyaan;
+import skp.siswa.magang.view.Form_InputAnalisa;
+import skp.siswa.magang.view.Form_Pertanyaan;
 
 /**
  *
  * @author Asus
  */
-public class MainForm extends javax.swing.JFrame {
+public class Form_MainForm extends javax.swing.JFrame {
 
     /**
      * Creates new form MainForm
      */
-    public MainForm() {
+    public Form_MainForm() {
         initComponents();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
@@ -118,7 +118,7 @@ public class MainForm extends javax.swing.JFrame {
 
         jMenu2.setText("Analisis");
 
-        jMenuItem6.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, 0));
+        jMenuItem6.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem6.setText("Mulai Test");
         jMenuItem6.setActionCommand("Mulai Survey");
         jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
@@ -130,6 +130,11 @@ public class MainForm extends javax.swing.JFrame {
 
         jMenuItem7.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem7.setText("Lihat Hasil Analisis");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem7);
 
         jMenuBar1.add(jMenu2);
@@ -158,7 +163,7 @@ public class MainForm extends javax.swing.JFrame {
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         try {
             // TODO add your handling code here:
-            InputAnalisa InptAnlys = new InputAnalisa();
+            Form_InputAnalisa InptAnlys = new Form_InputAnalisa();
             jDesktopPane1.add(InptAnlys);
             InptAnlys.setMaximum(true);
             InptAnlys.setClosable(true);
@@ -167,14 +172,14 @@ public class MainForm extends javax.swing.JFrame {
             InptAnlys.setResizable(true);
             InptAnlys.setVisible(true);
         } catch (PropertyVetoException ex) {
-            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Form_MainForm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
         try {
             // TODO add your handling code here:
-            Pertanyaan quest = new Pertanyaan();
+            Form_Pertanyaan quest = new Form_Pertanyaan();
             jDesktopPane1.add(quest);
             quest.setMaximum(true);
             quest.setClosable(true);
@@ -183,9 +188,14 @@ public class MainForm extends javax.swing.JFrame {
             quest.setResizable(true);
             quest.setVisible(true);
         } catch (PropertyVetoException ex) {
-            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Form_MainForm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -204,20 +214,21 @@ public class MainForm extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Form_MainForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Form_MainForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Form_MainForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MainForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Form_MainForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                MainForm jf = new MainForm();       
+                Form_MainForm jf = new Form_MainForm();       
                 jf.setVisible(true);
             }
         });

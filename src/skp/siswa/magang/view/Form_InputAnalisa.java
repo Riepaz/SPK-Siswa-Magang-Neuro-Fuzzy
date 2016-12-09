@@ -12,12 +12,12 @@ import javax.swing.JInternalFrame;
  *
  * @author Asus
  */
-public class InputAnalisa extends javax.swing.JInternalFrame {
+public class Form_InputAnalisa extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form InputSiswa
      */
-    public InputAnalisa() {
+    public Form_InputAnalisa() {
         initComponents();
     }
 
@@ -63,14 +63,16 @@ public class InputAnalisa extends javax.swing.JInternalFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(InputAnalisa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Form_InputAnalisa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(InputAnalisa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Form_InputAnalisa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(InputAnalisa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Form_InputAnalisa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(InputAnalisa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Form_InputAnalisa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
@@ -78,7 +80,7 @@ public class InputAnalisa extends javax.swing.JInternalFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 
-                InputAnalisa inpForm =  new InputAnalisa();
+                Form_InputAnalisa inpForm =  new Form_InputAnalisa();
                 inpForm.setMaximizable(true);
                 inpForm.setVisible(true);
             }

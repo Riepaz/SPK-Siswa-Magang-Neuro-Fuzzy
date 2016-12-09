@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import skp.siswa.magang.preferences.preferecePertanyaan;
 import skp.siswa.magang.preferences.preferenceJawaban;
-import skp.siswa.magang.view.Pertanyaan;
+import skp.siswa.magang.view.Form_Pertanyaan;
 
 /**
  *

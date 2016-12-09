@@ -11,13 +11,13 @@ package skp.siswa.magang.preferences;
  */
 public class preferencehasiljawaban {
      
-    private String [] jawab;
+    private String [][] jawab;
     
-    public void jawaban(String [] jawab){
+    public void setJawaban(String [][] jawab){
         this.jawab = jawab;
     }
     
-    public String [] getJawab(){
+    public String [][] getJawab(){
         return jawab;
     }
 }
