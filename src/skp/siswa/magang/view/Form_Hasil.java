@@ -5,18 +5,33 @@
  */
 package skp.siswa.magang.view;
 
+import skp.siswa.magang.preferences.preferenceHasilJawaban;
+
+
 /**
  *
  * @author Asus
  */
-public class Form_Hasil extends javax.swing.JFrame {
+public class Form_Hasil extends javax.swing.JInternalFrame  {
 
     /**
-     * Creates new form form_Hasil
+     * Creates new form Form_Hasil
      */
+    
+    private preferenceHasilJawaban tampilJawaban = new preferenceHasilJawaban();
+  
     public Form_Hasil() {
         initComponents();
+        for(int x = 0; x<tampilJawaban.getJawab().length;x++){
+            for(int y = 0; y < tampilJawaban.getJawab()[x].length;y++){
+                if(tampilJawaban.getJawab()[x][y] != null && tampilJawaban.getJawab()[x][y] != " "){
+                    textArea1.append(tampilJawaban.getJawab()[x][y]+" , ");
+                }
+            }
+        }
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -27,17 +42,17 @@ public class Form_Hasil extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        textArea1 = new java.awt.TextArea();
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(textArea1, javax.swing.GroupLayout.DEFAULT_SIZE, 562, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(textArea1, javax.swing.GroupLayout.DEFAULT_SIZE, 433, Short.MAX_VALUE)
         );
 
         pack();
@@ -80,5 +95,6 @@ public class Form_Hasil extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private java.awt.TextArea textArea1;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,9 +5,6 @@
  */
 package skp.siswa.magang.view;
 
-import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
-
 /**
  *
  * @author Asus

@@ -9,11 +9,11 @@ package skp.siswa.magang.preferences;
  *
  * @author Asus
  */
-public class preferencehasiljawaban {
+public class preferenceHasilJawaban {
      
-    private String [][] jawab;
+    private static String [][] jawab;
     
-    public void setJawaban(String [][] jawab){
+    public void setJawaban(String [][] jawab){   
         this.jawab = jawab;
     }
     

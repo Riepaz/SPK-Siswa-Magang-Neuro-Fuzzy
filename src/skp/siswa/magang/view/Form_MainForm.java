@@ -9,8 +9,10 @@ import java.beans.PropertyVetoException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
-import skp.siswa.magang.view.Form_InputAnalisa;
-import skp.siswa.magang.view.Form_Pertanyaan;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import skp.siswa.magang.preferences.preferenceDataDiri;
+import skp.siswa.magang.sql.SQL_Query;
 
 /**
  *
@@ -21,9 +23,49 @@ public class Form_MainForm extends javax.swing.JFrame {
     /**
      * Creates new form MainForm
      */
+    
+    SQL_Query sql = new SQL_Query();
+    preferenceDataDiri dataDiri = new preferenceDataDiri();
+    
     public Form_MainForm() {
-        initComponents();
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        
+        if(perkenalan() == true && !"".equals(dataDiri.getNis()) && !"".equals(dataDiri.getNama())){
+            initComponents();
+            setExtendedState(JFrame.MAXIMIZED_BOTH);
+            String [] strArray = dataDiri.getNama().split(" ");
+            jLabel1.setText("Hi, " + strArray[0] +". ");
+            
+            if (sql.panggilSiswa(dataDiri.getNis()) == null){
+                sql.masukDataSiswa();
+            }else{
+                sql.updateDataSiswa();
+            }
+            
+        }else{
+            System.exit(0);
+        }
+    }
+    
+    public Boolean perkenalan(){
+        Boolean akses = false;
+        JTextField nis = new JTextField();
+        JTextField nama = new JTextField();
+        nis.setText("");
+        nama.setText("");
+        Object[] message = {
+            "NIS Anda : ", nis,
+            "Nama Anda : ", nama
+        };
+    
+        int option = JOptionPane.showConfirmDialog(null, message, "Masukan Data Diri Anda", JOptionPane.OK_CANCEL_OPTION);
+        if (option == JOptionPane.OK_OPTION) {
+            dataDiri.setNis(nis.getText());
+            dataDiri.setNama(nama.getText());
+            akses = true;
+        } else {
+            akses = false;
+        }        
+        return akses;
     }
 
     /**
@@ -44,6 +86,7 @@ public class Form_MainForm extends javax.swing.JFrame {
         jMenu7 = new javax.swing.JMenu();
         jMenu8 = new javax.swing.JMenu();
         jDesktopPane1 = new javax.swing.JDesktopPane();
+        jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -71,19 +114,32 @@ public class Form_MainForm extends javax.swing.JFrame {
         jMenu8.setText("jMenu8");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1153, 575));
         setSize(new java.awt.Dimension(0, 0));
 
         jDesktopPane1.setMinimumSize(new java.awt.Dimension(1366, 768));
+
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("-");
+
+        jDesktopPane1.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1366, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
+                .addContainerGap(1348, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addContainerGap())
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 768, Short.MAX_VALUE)
+            .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jMenu1.setText("File");
@@ -149,7 +205,7 @@ public class Form_MainForm extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jDesktopPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 616, Short.MAX_VALUE)
         );
 
         pack();
@@ -179,14 +235,14 @@ public class Form_MainForm extends javax.swing.JFrame {
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
         try {
             // TODO add your handling code here:
-            Form_Pertanyaan quest = new Form_Pertanyaan();
-            jDesktopPane1.add(quest);
-            quest.setMaximum(true);
-            quest.setClosable(true);
-            quest.setIconifiable(true);
-            quest.setMaximizable(true);
-            quest.setResizable(true);
-            quest.setVisible(true);
+            Form_Pertanyaan intent = new Form_Pertanyaan();
+            jDesktopPane1.add(intent);
+            intent.setMaximum(true);
+            intent.setClosable(true);
+            intent.setIconifiable(true);
+            intent.setMaximizable(true);
+            intent.setResizable(true);
+            intent.setVisible(true);
         } catch (PropertyVetoException ex) {
             Logger.getLogger(Form_MainForm.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -194,7 +250,19 @@ public class Form_MainForm extends javax.swing.JFrame {
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
         // TODO add your handling code here:
-        
+          try {
+            // TODO add your handling code here:
+            Form_Hasil intent = new Form_Hasil();
+            jDesktopPane1.add(intent);
+            intent.setMaximum(true);
+            intent.setClosable(true);
+            intent.setIconifiable(true);
+            intent.setMaximizable(true);
+            intent.setResizable(true);
+            intent.setVisible(true);
+        } catch (PropertyVetoException ex) {
+            Logger.getLogger(Form_MainForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     /**
@@ -236,6 +304,7 @@ public class Form_MainForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;

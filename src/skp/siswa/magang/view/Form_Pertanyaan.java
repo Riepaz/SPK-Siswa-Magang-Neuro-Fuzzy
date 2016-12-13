@@ -10,15 +10,11 @@ package skp.siswa.magang.view;
  * @author Asus
  */
 
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
-import javafx.scene.control.CheckBox;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 import skp.siswa.magang.preferences.preferecePertanyaan;
 import skp.siswa.magang.preferences.preferenceJawaban;
-import skp.siswa.magang.preferences.preferencehasiljawaban;
-import skp.siswa.magang.sql.query;
+import skp.siswa.magang.preferences.preferenceHasilJawaban;
+import skp.siswa.magang.sql.SQL_Query;
 
 public class Form_Pertanyaan extends javax.swing.JInternalFrame {
 
@@ -44,9 +40,9 @@ public class Form_Pertanyaan extends javax.swing.JInternalFrame {
     
     private preferecePertanyaan sumberPertanyaan = new preferecePertanyaan();
     private preferenceJawaban sumberJawaban = new preferenceJawaban();
-    private preferencehasiljawaban jawabanPengguna = new preferencehasiljawaban();
+    private preferenceHasilJawaban jawabanPengguna = new preferenceHasilJawaban();
     
-    private query sql = new query();
+    private SQL_Query sql = new SQL_Query();
     
     public Form_Pertanyaan() {
         initComponents();
@@ -62,11 +58,11 @@ public class Form_Pertanyaan extends javax.swing.JInternalFrame {
         sql.panggilPertanyaan();
         sql.PanggilJawaban();
         
+        jawaban = new String[46][5];
+        
         sumber = sumberPertanyaan.getPertanyaan();
         kategori = sumberPertanyaan.getKategori();
         status = sumberPertanyaan.getStatus();
-        
-        jawaban = new String[46][5];
         
         Sangat_Penting = sumberJawaban.getSangat_Penting();
         Penting = sumberJawaban.getPenting();
@@ -133,33 +129,34 @@ public class Form_Pertanyaan extends javax.swing.JInternalFrame {
             jButton5.setVisible(false);
             jButton6.setVisible(false);
             rasionalisasi.setEnabled(true);
+            rasionalisasi.setEditable(true);
         }
     }
     
-    private void ambilJawaban(){
+    private void ambilJawaban(int posisiButton){
         if(status[x] == 1){
-            jawabanSederhana.getText();
+            if(!jawabanSederhana.getText().equals("") && !jawabanSederhana.getText().equals(null)){
+                jawaban[x][0] = jawabanSederhana.getText();
+            }
         }
         else if (status[x]==2){
-            
-            if(rasionalisasi.getText() != null){
-                jawaban[x][0] = rasionalisasi.getText();
-            }
-            
-            if(jButton3.getModel().isPressed()){
-                jawaban[x][1] = jButton3.getText();
-            }else if(jButton4.getModel().isPressed()){
-                jawaban[x][1] = jButton4.getText();
-            }else if(jButton5.getModel().isPressed()){
-                jawaban[x][1] = jButton5.getText();
-            }else if(jButton6.getModel().isPressed()){
-                jawaban[x][1] = jButton6.getText();
-            } 
-        }
-        else if (x == 3){
-            if(jButton3.getModel().isPressed()){
+            if(posisiButton == 3){
                 jawaban[x][0] = jButton3.getText();
-            }else if(jButton4.getModel().isPressed()){
+            }else if(posisiButton == 4){
+                jawaban[x][0] = jButton4.getText();
+            }else if(posisiButton == 5){
+                jawaban[x][0] = jButton5.getText();
+            }else if(posisiButton == 6){
+                jawaban[x][0] = jButton6.getText();
+            }
+            if(!rasionalisasi.getText().equals("") && !rasionalisasi.getText().equals(null)){
+                jawaban[x][1] = rasionalisasi.getText();
+            }
+        }
+        else if (status[x] == 3){
+            if(posisiButton == 3){
+                jawaban[x][0] = jButton3.getText();
+            }else if(posisiButton == 4){
                 jawaban[x][0] = jButton4.getText();
             }
         }
@@ -169,15 +166,15 @@ public class Form_Pertanyaan extends javax.swing.JInternalFrame {
             }else if(jCheckBox2.isSelected()){
                 jawaban[x][0] = jCheckBox2.getText();
             }
-            jawaban[x][4] = rasionalisasi.getText();  
+            
+            if(!rasionalisasi.getText().equals("") && !rasionalisasi.getText().equals(null)){
+                jawaban[x][1] = rasionalisasi.getText();
+            }  
         }
         else if (status[x] == 5){
-            if(jButton3.getModel().isPressed()){
-                jawaban[x][0] = jButton3.getText();
-            }else if(jButton4.getModel().isPressed()){
-                jawaban[x][0] = jButton4.getText();
+            if(!rasionalisasi.getText().equals("") && !rasionalisasi.getText().equals(null)){
+                jawaban[x][1] = rasionalisasi.getText();
             }
-           jawaban[x][1] = rasionalisasi.getText();
         }
     }
     
@@ -221,6 +218,24 @@ public class Form_Pertanyaan extends javax.swing.JInternalFrame {
         rasionalisasi = new javax.swing.JTextArea();
         jPanel5 = new javax.swing.JPanel();
         jawabanSederhana = new javax.swing.JTextField();
+
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameClosing(evt);
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
 
         jButton1.setText("Skip");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -472,7 +487,7 @@ public class Form_Pertanyaan extends javax.swing.JInternalFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        int dialogResult = JOptionPane.showConfirmDialog (null, "Apakah Anda Yakin Untuk Melewat?","Skip",DISPOSE_ON_CLOSE);
+        int dialogResult = JOptionPane.showConfirmDialog (null, "Apakah Anda Yakin Untuk Melewati?","Skip",DISPOSE_ON_CLOSE);
         if(dialogResult == JOptionPane.YES_OPTION){
             posisi();
         }
@@ -480,36 +495,36 @@ public class Form_Pertanyaan extends javax.swing.JInternalFrame {
 
     private void inputJawabanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputJawabanActionPerformed
         // TODO add your handling code here:
+        ambilJawaban(1);
         jawabanPengguna.setJawaban(jawaban);
-        ambilJawaban();
         posisi();
     }//GEN-LAST:event_inputJawabanActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
+        ambilJawaban(6);
         jawabanPengguna.setJawaban(jawaban);
-        ambilJawaban();
         posisi();
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        ambilJawaban(3);
         jawabanPengguna.setJawaban(jawaban);
-        ambilJawaban();
         posisi();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
+        ambilJawaban(4);
         jawabanPengguna.setJawaban(jawaban);
-        ambilJawaban();
         posisi();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
+        ambilJawaban(5);
         jawabanPengguna.setJawaban(jawaban);
-        ambilJawaban();
         posisi();
     }//GEN-LAST:event_jButton5ActionPerformed
 
@@ -544,6 +559,11 @@ public class Form_Pertanyaan extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         inputJawaban.setEnabled(true);
     }//GEN-LAST:event_jawabanSederhanaKeyTyped
+
+    private void formInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosing
+        // TODO add your handling code here:
+        sql.masukDataJawaban();
+    }//GEN-LAST:event_formInternalFrameClosing
 
     /**
      * @param args the command line arguments

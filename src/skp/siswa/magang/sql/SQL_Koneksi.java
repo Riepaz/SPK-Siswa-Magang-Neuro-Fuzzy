@@ -1,16 +1,16 @@
 package skp.siswa.magang.sql;
 import java.sql.*;
 
-public class KoneksiMysql {
+public class SQL_Koneksi {
 	String url, usr, pwd, dbn;
-	public KoneksiMysql (String dbn) {
+	public SQL_Koneksi (String dbn) {
 		this.url = "jdbc:mysql://localhost:3306/" + dbn;
                 //this.url = "jdbc:mysql://localhost:3306/mysql";
 		this.usr = "root";
 		this.pwd = "";
 	}
 	
-	public KoneksiMysql (String host, String user, String pass, String dbn) {
+	public SQL_Koneksi (String host, String user, String pass, String dbn) {
 		this.url = "jdbc:mysql://localhost:3306/" + dbn;
 		//this.url = "jdbc:mysql://localhost:3306/mysql"; " + host + "/
 		this.usr = user;
