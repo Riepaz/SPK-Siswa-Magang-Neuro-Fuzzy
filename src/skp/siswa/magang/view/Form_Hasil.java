@@ -24,8 +24,8 @@ public class Form_Hasil extends javax.swing.JInternalFrame  {
         initComponents();
         for(int x = 0; x<tampilJawaban.getJawab().length;x++){
             for(int y = 0; y < tampilJawaban.getJawab()[x].length;y++){
-                if(tampilJawaban.getJawab()[x][y] != null && tampilJawaban.getJawab()[x][y] != " "){
-                    textArea1.append(tampilJawaban.getJawab()[x][y]+" , ");
+                if(tampilJawaban.getJawab()[x][y] != null && tampilJawaban.getJawab()[x][y] != ""){
+                    textArea1.append(tampilJawaban.getJawab()[x][y] +" , ");
                 }
             }
         }

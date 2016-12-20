@@ -49,8 +49,7 @@ public class SQL_Query {
     public final void open_db() {       
         try{   
             SQL_Koneksi kon = new SQL_Koneksi ("127.0.0.1","root","","siswa_magang");
-            Con = kon.getConnection();   
-            System.out.println("Berhasil ");         
+            Con = kon.getConnection();           
          }catch (Exception e) {   
            System.out.println("Error : "+e);   
          } 

@@ -12,6 +12,7 @@ package skp.siswa.magang.preferences;
 public class preferenceHasilJawaban {
      
     private static String [][] jawab;
+    private static float [][] hasilFuzzifikasi;
     
     public void setJawaban(String [][] jawab){   
         this.jawab = jawab;
@@ -19,5 +20,13 @@ public class preferenceHasilJawaban {
     
     public String [][] getJawab(){
         return jawab;
+    }
+    
+    public void setHasilFuzzifikasi(float [][] hasilFuzzifikasi){   
+        this.hasilFuzzifikasi = hasilFuzzifikasi;
+    }
+    
+    public float [][] getHasilFuzzifikasi(){   
+        return hasilFuzzifikasi;
     }
 }

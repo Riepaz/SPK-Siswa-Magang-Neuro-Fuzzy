@@ -10,10 +10,12 @@ package skp.siswa.magang.view;
  * @author Asus
  */
 
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
+import skp.siswa.magang.metode.fuzzifikasi;
 import skp.siswa.magang.preferences.preferecePertanyaan;
-import skp.siswa.magang.preferences.preferenceJawaban;
 import skp.siswa.magang.preferences.preferenceHasilJawaban;
+import skp.siswa.magang.preferences.preferenceJawaban;
 import skp.siswa.magang.sql.SQL_Query;
 
 public class Form_Pertanyaan extends javax.swing.JInternalFrame {
@@ -41,7 +43,7 @@ public class Form_Pertanyaan extends javax.swing.JInternalFrame {
     private preferecePertanyaan sumberPertanyaan = new preferecePertanyaan();
     private preferenceJawaban sumberJawaban = new preferenceJawaban();
     private preferenceHasilJawaban jawabanPengguna = new preferenceHasilJawaban();
-    
+    private fuzzifikasi fuzzy = new fuzzifikasi();
     private SQL_Query sql = new SQL_Query();
     
     public Form_Pertanyaan() {
@@ -52,6 +54,8 @@ public class Form_Pertanyaan extends javax.swing.JInternalFrame {
         cekStatusPertanyaan(x);
         labelPertanyaan.setText(sumber[x].toString()+"?");
         rasionalisasi.setEnabled(false);
+        
+        inputJawaban.setMnemonic(KeyEvent.VK_ENTER);
     }
     
     private void loadPertanyaan(){
@@ -81,6 +85,7 @@ public class Form_Pertanyaan extends javax.swing.JInternalFrame {
             jButton4.setVisible(false);
             jButton5.setVisible(false);
             jButton6.setVisible(false);
+            rasionalisasi.setEnabled(false);
             rasionalisasi.setEditable(false);
         }else if(status[s]==2){
             jawabanSederhana.setVisible(false);
@@ -119,6 +124,7 @@ public class Form_Pertanyaan extends javax.swing.JInternalFrame {
             jButton5.setVisible(false);
             jButton6.setVisible(false);
             rasionalisasi.setEnabled(true);
+            rasionalisasi.setEditable(true);
         }else if(status[s]==5){
             jawabanSederhana.setVisible(false);
             jCheckBox1.setVisible(false);
@@ -141,39 +147,40 @@ public class Form_Pertanyaan extends javax.swing.JInternalFrame {
         }
         else if (status[x]==2){
             if(posisiButton == 3){
-                jawaban[x][0] = jButton3.getText();
+                jawaban[x][1] = "1";
             }else if(posisiButton == 4){
-                jawaban[x][0] = jButton4.getText();
+                jawaban[x][1] = "0.5";
             }else if(posisiButton == 5){
-                jawaban[x][0] = jButton5.getText();
+                jawaban[x][1] = "0.25";
             }else if(posisiButton == 6){
-                jawaban[x][0] = jButton6.getText();
+                jawaban[x][1] = "0";
             }
+            
             if(!rasionalisasi.getText().equals("") && !rasionalisasi.getText().equals(null)){
-                jawaban[x][1] = rasionalisasi.getText();
-            }
+                jawaban[x][4] = rasionalisasi.getText();
+            }  
         }
         else if (status[x] == 3){
             if(posisiButton == 3){
-                jawaban[x][0] = jButton3.getText();
+                jawaban[x][2] = "1";
             }else if(posisiButton == 4){
-                jawaban[x][0] = jButton4.getText();
+                jawaban[x][2] = "0";
             }
         }
         else if (status[x] == 4){
             if(jCheckBox1.isSelected()){
-                jawaban[x][0] = jCheckBox1.getText();
+                jawaban[x][3] = "1";
             }else if(jCheckBox2.isSelected()){
-                jawaban[x][0] = jCheckBox2.getText();
+                jawaban[x][3] = "0";
             }
             
             if(!rasionalisasi.getText().equals("") && !rasionalisasi.getText().equals(null)){
-                jawaban[x][1] = rasionalisasi.getText();
+                jawaban[x][4] = rasionalisasi.getText();
             }  
         }
         else if (status[x] == 5){
             if(!rasionalisasi.getText().equals("") && !rasionalisasi.getText().equals(null)){
-                jawaban[x][1] = rasionalisasi.getText();
+                jawaban[x][4] = rasionalisasi.getText();
             }
         }
     }
@@ -248,6 +255,11 @@ public class Form_Pertanyaan extends javax.swing.JInternalFrame {
         inputJawaban.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 inputJawabanActionPerformed(evt);
+            }
+        });
+        inputJawaban.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                inputJawabanKeyPressed(evt);
             }
         });
 
@@ -563,7 +575,14 @@ public class Form_Pertanyaan extends javax.swing.JInternalFrame {
     private void formInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosing
         // TODO add your handling code here:
         sql.masukDataJawaban();
+        if(jawabanPengguna.getJawab() != null){
+            fuzzy.inferensiEssay();
+        }
     }//GEN-LAST:event_formInternalFrameClosing
+
+    private void inputJawabanKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputJawabanKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_inputJawabanKeyPressed
 
     /**
      * @param args the command line arguments
